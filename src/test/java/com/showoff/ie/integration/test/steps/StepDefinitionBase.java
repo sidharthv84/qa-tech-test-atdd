@@ -1,5 +1,6 @@
 package com.showoff.ie.integration.test.steps;
 
+import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.HttpHeaders;
@@ -24,7 +25,12 @@ public class StepDefinitionBase {
 
   protected transient ValidatableResponse response;
 
-    protected void makeGetCall(String url, Map<String,String> headers) {
+
+    protected void makeGetCall(String url, Map<String,String> headers, String userId) {
+        System.out.println("URL : "+url +" userId : "+userId);
+        if( null != userId){
+          url = url + userId;
+        }
         response = given().urlEncodingEnabled(false).log().all()
                 .headers(ObjectUtils.defaultIfNull(headers, new HashMap<>()))
                 .when()
@@ -49,7 +55,7 @@ public class StepDefinitionBase {
                 .body(body)
                 .when()
                 .port(port)
-                .get(url)
+                .put(url)
                 .then();
     }
 

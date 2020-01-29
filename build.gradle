@@ -2,9 +2,9 @@ plugins {
     id 'java'
 }
 
-group 'com.showoff.ie.integration.test'
+group 'com.shoeoff.ie.integration.test'
 description 'integration test for Rails React App'
-version '1.0-SNAPSHOT'
+version '0.0.1'
 
 sourceCompatibility = 1.8
 

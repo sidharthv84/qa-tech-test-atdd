@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = {"pretty","pretty:target/cucumber-html-report.html"},
         features = "src/test/resources/features",
-        glue = "com.showoff.ie.integration.test.steps", tags = {"@integration"})
+        glue = "com.showoff.ie.integration.test.steps", tags = {"@integrationTest"})
 
 
 public class CucumberTest {

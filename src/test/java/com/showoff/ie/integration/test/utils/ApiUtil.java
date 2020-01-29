@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import cucumber.api.DataTable;
 import io.cucumber.java.it.Ma;
+import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class ApiUtil {
     public Map<String, String> getValidHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
+
         return headers;
     }
 
@@ -64,6 +66,13 @@ public class ApiUtil {
         return dataMap;
     }
 
+//    public static Map<String, String> getMethodHeaders(){
+//        Map<String,String> getMethodHeaders = new HttpHeaders();
+//        getMethodHeaders.add
+//
+//
+//    }
+
     /**
      * This implementation method updates the existing json file content with map of data passed to
      * the method
@@ -75,15 +84,6 @@ public class ApiUtil {
 
     public String getRequestWithNewValueToTheField(Map<String, String> detailsMap, String fileName) {
         try {
-        //    String jsonFile = new String(Files.readAllBytes(Paths.get(JSON_REQUEST_PATH + fileName + ".json")), Charset.defaultCharset());
-
-          /*  if (detailsMap == null) {
-                return jsonFile;
-            }*/
-
-      /*      ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> map = mapper.readValue(jsonFile, Map.class);
-      */
             byte[] jsonData = Files.readAllBytes(Paths.get(JSON_REQUEST_PATH + fileName + ".json"));
             //create ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -95,6 +95,14 @@ public class ApiUtil {
             }
             if(detailsMap.containsKey("first_name")){
                 ((ObjectNode) userInfoNode).put("first_name", detailsMap.get("first_name"));
+            }
+            if(detailsMap.containsKey("last_name")){
+                ((ObjectNode) userInfoNode).put("last_name", detailsMap.get("last_name"));
+            }
+            if(detailsMap.containsKey("last_name")){
+                ((ObjectNode) userInfoNode).put("password", detailsMap.get("password"));
+            } else if (detailsMap.isEmpty()){
+                System.out.println("testinf 123");
             }
 
             /*for (Entry<String, String> tobeReplaced : detailsMap.entrySet()) {
