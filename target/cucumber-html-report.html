@@ -1,0 +1,7 @@
+Feature: Register user for Application
+
+  @integration
+  Scenario: User registration returns success response - with valid user info [90m# test1.feature:3[0m
+    [32mGiven [0m[32mUser registration Api is up and running[0m                             [90m# UserSteps.userRegistrationApiIsUpAndRunning()[0m
+    [32mWhen [0m[32mI submit a request to perform registration with below info[0m           [90m# UserSteps.iSubmitARequestToPerformRegistrationWithBelowInfo(String,String>)[0m
+    [32mThen [0m[32mValidate the response body[0m                                           [90m# UserSteps.validateTheResponseBody()[0m

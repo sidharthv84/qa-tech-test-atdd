@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.showoff.ie.integration.test.CucumberTest" tests="0" skipped="0" failures="0" errors="0" timestamp="1970-01-01T00:00:00" hostname="Sidharths-MBP" time="0.0">
+  <properties/>
+  <system-out><![CDATA[Feature: Register user for Application
+https://showoff-rails-react-production.herokuapp.com/api/v1/users
+Request method:	POST
+Request path:	https://showoff-rails-react-production.herokuapp.com/api/v1/users
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Multiparts:		<none>
+Headers:		Accept=*/*
+				Content-Type=application/json; charset=UTF-8
+Cookies:		<none>
+Body:
+{
+    "client_id": "277ef29692f9a70d511415dc60592daf4cf2c6f6552d3e1b769924b2f2e2e6fe",
+    "client_secret": "d6106f26e8ff5b749a606a1fba557f44eb3dca8f48596847770beb9b643ea352",
+    "user": {
+        "first_name": "Testing12345",
+        "last_name": "Integration",
+        "password": "Ireland1",
+        "email": "Irelandnot20@gmail.com",
+        "image_url": "https://static.thenounproject.com/png/961-200.png"
+    }
+}
+com.jayway.restassured.internal.ValidatableResponseImpl@504189b3
+null
+
+  @integration
+  Scenario: User registration returns success response - with valid user info ?[90m# test1.feature:3?[0m
+    ?[32mGiven ?[0m?[32mUser registration Api is up and running?[0m                             ?[90m# UserSteps.userRegistrationApiIsUpAndRunning()?[0m
+    ?[32mWhen ?[0m?[32mI submit a request to perform registration with below info?[0m           ?[90m# UserSteps.iSubmitARequestToPerformRegistrationWithBelowInfo(String,String>)?[0m
+    ?[32mThen ?[0m?[32mValidate the response body?[0m                                           ?[90m# UserSteps.validateTheResponseBody()?[0m
+
+1 Scenarios (?[32m1 passed?[0m)
+3 Steps (?[32m3 passed?[0m)
+0m2.844s
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

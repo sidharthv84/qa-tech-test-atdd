@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Scenario: User registration returns success response - with valid user info" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-01-29T12:23:10" hostname="Sidharths-MBP" time="2.704">
+  <properties/>
+  <testcase name="Given User registration Api is up and running" classname="Scenario: User registration returns success response - with valid user info" time="0.0"/>
+  <testcase name="When I submit a request to perform registration with below info" classname="Scenario: User registration returns success response - with valid user info" time="0.0"/>
+  <testcase name="Then Validate the response body" classname="Scenario: User registration returns success response - with valid user info" time="0.0"/>
+  <testcase name="classMethod" classname="Scenario: User registration returns success response - with valid user info" time="2.849"/>
+  <system-out><![CDATA[test
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

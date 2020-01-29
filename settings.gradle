@@ -1,0 +1,8 @@
+pluginManagement{
+    repositories {
+        maven { }
+    }
+}
+
+rootProject.name = 'integration.test'
+
