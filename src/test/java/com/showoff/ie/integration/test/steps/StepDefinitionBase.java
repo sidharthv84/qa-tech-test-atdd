@@ -27,10 +27,13 @@ public class StepDefinitionBase {
 
 
     protected void makeGetCall(String url, Map<String,String> headers, String userId) {
-        System.out.println("URL : "+url +" userId : "+userId);
+        //System.out.println("URL : "+url +" userId : "+userId);
         if( null != userId){
-          url = url + userId;
+          url = url + "/"+userId;
         }
+//        if (userId.equalsIgnoreCase("ME")){
+//            url = url + "/"+userId;
+//        }
         response = given().urlEncodingEnabled(false).log().all()
                 .headers(ObjectUtils.defaultIfNull(headers, new HashMap<>()))
                 .when()

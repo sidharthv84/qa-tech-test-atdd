@@ -66,12 +66,6 @@ public class ApiUtil {
         return dataMap;
     }
 
-//    public static Map<String, String> getMethodHeaders(){
-//        Map<String,String> getMethodHeaders = new HttpHeaders();
-//        getMethodHeaders.add
-//
-//
-//    }
 
     /**
      * This implementation method updates the existing json file content with map of data passed to

@@ -1,6 +1,7 @@
 package com.showoff.ie.integration.test.steps;
 
 import com.showoff.ie.integration.test.utils.ApiUtil;
+import com.showoff.ie.integration.test.utils.ConfigFileReader;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,6 +19,8 @@ public class UserSteps  extends StepDefinitionBase{
     private final transient ApiUtil util = new ApiUtil();
     private static String user_id;
     private static String access_token;
+    private static String email_id;
+    ConfigFileReader configFileReader = new ConfigFileReader();
 
     private void submitRequest(String method, Map<String, String> userInfo, String endPoint, String request, String access_token) {
         performHttpMethod(method, endPoint, userInfo, request, access_token);
@@ -25,9 +28,9 @@ public class UserSteps  extends StepDefinitionBase{
 
         private void performHttpMethod(String method, String url, Map<String, String> userInfo ,String body, String access_token ){
             Map<String,String> headers =  util.getValidHeaders();
+          //  headers.put("Authorization","Bearer 689150a9e2fd787be5fb2fdf1bfe30ed2e9cba99be393c7fd16e4692af5794c0");
             if(null != access_token){
-             //   headers.put("Authorization","Bearer 689150a9e2fd787be5fb2fdf1bfe30ed2e9cba99be393c7fd16e4692af5794c0");
-                headers.put("Authorization","Bearer " +access_token);
+               headers.put("Authorization","Bearer " +access_token);
             }
 
         switch (method) {
@@ -60,7 +63,8 @@ public class UserSteps  extends StepDefinitionBase{
     @When("I submit a request to perform registration with below info")
     public void iSubmitARequestToPerformRegistrationWithBelowInfo(Map<String, String> userInfo) {
         this.userInfo = userInfo;
-        submitRequest(POST_METHOD, userInfo, CREATE_USER_ENDPOINT, CREATE_USER,null );
+        submitRequest(POST_METHOD, userInfo, configFileReader.getUrl("BASE_URL"), CREATE_USER,null );
+        Assert.assertEquals(response.extract().statusCode(),200);
     }
 
     @Then("Validate the response body")
@@ -72,11 +76,12 @@ public class UserSteps  extends StepDefinitionBase{
         Assert.assertEquals(response.extract().body().jsonPath().getJsonObject("data.user.email"),userInfo.get("email").toLowerCase());
         user_id = (response.extract().body().jsonPath().getJsonObject("data.user.id").toString());
         access_token = (response.extract().body().jsonPath().getJsonObject("data.token.access_token").toString());
+        email_id = (response.extract().body().jsonPath().getJsonObject("data.user.email").toString());
     }
 
     @When("I perform the get operation for ID")
     public void iPerformTheGetOperationForID() {
-        submitRequest(GET_METHOD, userInfo, GET_USER_ID_ENDPOINT, user_id, access_token );
+        submitRequest(GET_METHOD, userInfo, configFileReader.getUrl("BASE_URL"), user_id, access_token );
         Assert.assertEquals(response.extract().statusCode(),200);
     }
 
@@ -85,23 +90,28 @@ public class UserSteps  extends StepDefinitionBase{
     public void apiReturnsSuccessResponse() {
     }
 
-
-    @When("I perform the get operation for me")
-    public void iPerformTheGetOperationForMe() {
-        submitRequest(GET_METHOD, userInfo, GET_USER_ME_ENDPOINT, null, access_token );
-        Assert.assertEquals(response.extract().statusCode(),200);
-    }
-
     @When("I perform the update operation for the user")
     public void iPerformTheUpdateOperationForTheUser(Map<String, String> userInfo) {
         this.userInfo = userInfo;
-        submitRequest(PUT_METHOD, userInfo, PUT_USER_ENDPOINT, UPDATE_USER, access_token );
+       String param =  userInfo.get("firstname") + userInfo.get("last_name");
+        submitRequest(PUT_METHOD, userInfo, configFileReader.getUrl("BASE_URL")+"me?="+param, UPDATE_USER, access_token );
         Assert.assertEquals(response.extract().statusCode(),200);
     }
 
     @When("I perform the get operation for check email end point")
     public void iPerformTheGetOperationForCheckEmailEndPoint() {
-        submitRequest(GET_METHOD, userInfo, CHECK_EMAIL, null, access_token );
+        String check_email_url = configFileReader.getUrl("BASE_URL")+"email?email="+email_id+"" +
+                "&client_id="+configFileReader.getUrl("CLIENT_ID")
+                +"&client_secret="+configFileReader.getUrl("CLIENT_SECRET");
+        submitRequest(GET_METHOD, userInfo,check_email_url , null, access_token );
+        Assert.assertEquals(response.extract().statusCode(),200);
+    }
+
+
+    @When("^I perform the get operation for \"([^\"]*)\"$")
+    public void iPerformTheGetOperationFor(String arg0) {
+        System.out.println(arg0);
+        submitRequest(GET_METHOD, userInfo, configFileReader.getUrl("BASE_URL")+arg0, null, access_token );
         Assert.assertEquals(response.extract().statusCode(),200);
     }
 }
