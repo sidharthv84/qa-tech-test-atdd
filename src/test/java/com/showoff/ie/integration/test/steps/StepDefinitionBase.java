@@ -1,11 +1,9 @@
 package com.showoff.ie.integration.test.steps;
 
-import com.jayway.restassured.response.Response;
 import com.jayway.restassured.response.ValidatableResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.http.HttpHeaders;
 import org.junit.Ignore;
-import org.junit.runner.RunWith;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,13 +25,10 @@ public class StepDefinitionBase {
 
 
     protected void makeGetCall(String url, Map<String,String> headers, String userId) {
-        //System.out.println("URL : "+url +" userId : "+userId);
         if( null != userId){
           url = url + "/"+userId;
         }
-//        if (userId.equalsIgnoreCase("ME")){
-//            url = url + "/"+userId;
-//        }
+
         response = given().urlEncodingEnabled(false).log().all()
                 .headers(ObjectUtils.defaultIfNull(headers, new HashMap<>()))
                 .when()

@@ -1,24 +1,16 @@
 package com.showoff.ie.integration.test.utils;
 
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import cucumber.api.DataTable;
-import io.cucumber.java.it.Ma;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -98,20 +90,6 @@ public class ApiUtil {
             } else if (detailsMap.isEmpty()){
                 System.out.println("testinf 123");
             }
-
-            /*for (Entry<String, String> tobeReplaced : detailsMap.entrySet()) {
-                String keyToBeUpdated = tobeReplaced.getKey();
-                String newValue = tobeReplaced.getValue();
-
-                if ("blank".equals(newValue)) {
-                    newValue = " ";
-                } else if ("null".equals(newValue)) {
-                    newValue = NULL_VALUE;
-                } else if ("empty".equals(newValue)) {
-                    newValue = "";
-                }
-                updateMapWithNewValue(keyToBeUpdated, newValue, map);
-            }*/
             return rootNode.toString();
         } catch (IOException exe) {
            fail("Exception occured", exe);
@@ -136,10 +114,7 @@ public class ApiUtil {
             map.put(keyToBeUpdated,newValue);
 
         }
-
-
-
-
     }
+
 
 }
