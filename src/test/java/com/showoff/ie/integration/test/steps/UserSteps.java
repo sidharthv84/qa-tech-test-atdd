@@ -69,7 +69,6 @@ public class UserSteps extends StepDefinitionBase {
 
     @Then("^I validate (.+) for the request")
     public void iValidateForTheRequest(String status) {
-        System.out.println(Integer.parseInt(status.substring(1, 4)));
         Assert.assertEquals(response.extract().statusCode(), Integer.parseInt(status.substring(1, 4)));
     }
 
@@ -88,7 +87,7 @@ public class UserSteps extends StepDefinitionBase {
     @When("I perform the get operation for ID")
     public void iPerformTheGetOperationForID() {
         submitRequest(GET_METHOD, userInfo, configFileReader.getUrl("BASE_URL"), user_id, access_token);
-        Assert.assertEquals(response.extract().statusCode(), 200);
+
     }
 
 
@@ -101,7 +100,6 @@ public class UserSteps extends StepDefinitionBase {
         this.userInfo = userInfo;
         String param = userInfo.get("firstname") + userInfo.get("last_name");
         submitRequest(PUT_METHOD, userInfo, configFileReader.getUrl("BASE_URL") + "me?=" + param, UPDATE_USER, access_token);
-        Assert.assertEquals(response.extract().statusCode(), 200);
     }
 
     @When("I perform the get operation for check email end point")
@@ -110,25 +108,20 @@ public class UserSteps extends StepDefinitionBase {
                 "&client_id=" + configFileReader.getUrl("CLIENT_ID")
                 + "&client_secret=" + configFileReader.getUrl("CLIENT_SECRET");
         submitRequest(GET_METHOD, userInfo, check_email_url, null, access_token);
-        Assert.assertEquals(response.extract().statusCode(), 200);
     }
 
 
     @When("^I perform the get operation for \"([^\"]*)\"$")
     public void iPerformTheGetOperationFor(String arg0) {
-        System.out.println(arg0);
         submitRequest(GET_METHOD, userInfo, configFileReader.getUrl("BASE_URL") + arg0, null, access_token);
-        Assert.assertEquals(response.extract().statusCode(), 200);
     }
 
 
     @And("Validate the error response (.+)")
     public void validateTheResponseBody(String text) {
         int textLength = text.length();
-
         if (textLength >= 2 && text.charAt(0) == '"' && text.charAt(textLength - 1) == '"') {
             String error_msg = text.substring(1, textLength - 1);
-            System.out.println(error_msg);
             Assert.assertEquals(response.extract().body().jsonPath().getJsonObject("message"), error_msg);
         }
     }
@@ -145,5 +138,22 @@ public class UserSteps extends StepDefinitionBase {
     public void iSubmitARequestToApiToPerformRegistrationWithBelow(String method, Map<String, String> userInfo) {
         this.userInfo = userInfo;
         submitRequest(method, userInfo, configFileReader.getUrl("BASE_URL"), CREATE_USER, null);
+    }
+
+    @When("I perform the get operation for ID using incorrect \"([^\"]*)\"$")
+    public void iPerformTheGetOperationForIDUsingIncorrect(String arg0) {
+    }
+
+    @When("I call the get operation for ID for incorrect end point")
+    public void iPerformTheGetOperationForIDForIncorrectEndPoint() {
+        submitRequest(GET_METHOD, userInfo, configFileReader.getUrl("URL"), user_id, access_token);
+    }
+
+    @When("^I perform the operation for USER using incorrect \"([^\"]*)\"$")
+    public void iPerformTheOperationForUSERUsingIncorrect(String method,Map<String,String> userInfo) {
+        this.userInfo = userInfo;
+        String param = userInfo.get("firstname") + userInfo.get("last_name");
+        submitRequest(method, userInfo, configFileReader.getUrl("BASE_URL") + "me?=" + param, UPDATE_USER, access_token);
+
     }
 }

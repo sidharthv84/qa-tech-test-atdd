@@ -84,9 +84,5 @@ public class StepDefinitionBase {
                 .when()
                 .get("https://showoff-rails-react-production.herokuapp.com/api/v1/users")
                 .then();
-
-        System.out.println("body"+  body);
-
-
     }
 }

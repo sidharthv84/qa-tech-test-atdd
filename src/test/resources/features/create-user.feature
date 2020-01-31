@@ -4,7 +4,7 @@ Feature: Register user for Application
   Scenario Outline: Successful request - Create User API returns success response - with valid user info
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
-      | email      | Irelandnot78@gmail.com |
+      | email      | placeholder4@gmail.com |
       | last_name  | Integration            |
       | first_name | Testing12345           |
       | password   | Test@1234              |
@@ -31,13 +31,14 @@ Feature: Register user for Application
       | email | 123456!1234   | 422    | Email is invalid                      |
       | email |               | 422    | Email can't be blank                  |
       | email | 1             | 422    | Email is invalid                      |
+      | email | **            | 422    | Email is invalid                      |
       | email | test@123      | 422    | A user with that email already exists |
 
   @componentTest
   Scenario Outline: Bad request - Create User API returns error response - with invalid password
     Given User registration Api is up and running
     When I submit a request to perform registration with password and below info "<value>"
-      | email      | Irelandnot74@gmail.com |
+      | email      | test@gmail.com |
       | last_name  | Integration            |
       | first_name | Test                   |
       | password   | <value>                |
@@ -54,7 +55,7 @@ Feature: Register user for Application
   Scenario Outline: Bad request - Create User API returns error response - with invalid first name
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
-      | email      | Irelandnot73@gmail.com |
+      | email      | test@gmail.com |
       | last_name  | Integration            |
       | first_name |                        |
       | password   | Test@1234              |
@@ -68,7 +69,7 @@ Feature: Register user for Application
   Scenario Outline: Bad request - Create User API returns error response - with invalid first name
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
-      | email      | Irelandnot73@gmail.com |
+      | email      | test@gmail.com |
       | last_name  |                        |
       | first_name | Test                   |
       | password   | Test@1234              |
@@ -81,7 +82,7 @@ Feature: Register user for Application
   Scenario Outline: Bad request - Not allowed methods
     Given User registration Api is up and running
     When I submit a request to api to perform registration with below "<methods>"
-      | email      | Irelandnot74@gmail.com |
+      | email      | test@gmail.com |
       | last_name  | Integration            |
       | first_name | Test                   |
       | password   | 12345678               |
@@ -92,3 +93,45 @@ Feature: Register user for Application
       | 404    | patch    |
       | 404    | delete   |
       | 404    | put      |
+
+  @tobecompleted
+  Scenario Outline: Bad request - Invalid headers
+    Given User registration Api is up and running
+    When I submit a request to api to perform registration with below "<headers>"
+      | email      | test@gmail.com |
+      | last_name  | Integration            |
+      | first_name | Test                   |
+      | password   | 12345678               |
+    Then I validate "<status>" for the request
+    And Validate the error response "<error_message>"
+    Examples:
+      | status | headers  |error_message|
+      | 401    | application/xml|This client is not authorized to perform that action.|
+      | 401    |                |This client is not authorized to perform that action.|
+
+  @tobecompleted
+  Scenario Outline: Bad request - Internal Server errors - API is down
+    Given User registration Api is up and running
+    When I submit a request to api to perform registration with below "<headers>"
+      | email      | test@gmail.com |
+      | last_name  | Integration            |
+      | first_name | Test                   |
+      | password   | 12345678               |
+    Then I validate "<status>" for the request
+    And Validate the error response "<error_message>"
+    Examples:
+      | status | headers  |error_message|
+      | 500    | application/xml|This client is not authorized to perform that action.|
+
+    @tobecompleted
+    Scenario Outline: Bad request - 404 - wrong end point
+      Given User registration Api is up and running
+      When I submit a request to api to perform registration with below "<endpoint>"
+        | email      | test@gmail.com |
+        | last_name  | Integration            |
+        | first_name | Test                   |
+        | password   | 12345678               |
+      Then I validate "<status>" for the request
+      Examples:
+        | status | endpoint  |
+        | 404    | https://showoff-rails-react-production.herokuapp.com/api/ |

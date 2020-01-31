@@ -87,8 +87,6 @@ public class ApiUtil {
             }
             if(detailsMap.containsKey("last_name")){
                 ((ObjectNode) userInfoNode).put("password", detailsMap.get("password"));
-            } else if (detailsMap.isEmpty()){
-                System.out.println("testinf 123");
             }
             return rootNode.toString();
         } catch (IOException exe) {
