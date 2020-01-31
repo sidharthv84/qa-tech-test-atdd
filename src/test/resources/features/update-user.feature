@@ -95,4 +95,14 @@ Feature: Put Operation - Update User
       |status|
       |500   |
 
+  @todo
+  Scenario Outline: Put operation - Revoke Access Token and Refresh Access Token
+    Given User registration Api is up and running
+    When I perform the get operation for check email end point
+    Then I validate "<status>" for the request
+    Then Api returns success response
+    Examples:
+      |status|
+      |200   |
+
 

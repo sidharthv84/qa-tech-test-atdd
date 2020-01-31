@@ -15,6 +15,8 @@ The project can be built using ./gradlew clean build
 
 ## Add email_id, first_name, last_name and password in create-user.feature file
 Update create-user.feature file with unique email_id
+##line number 7 of feature file to be update with email id
+ | email      | placeholder@gmail.com  |
 
 ## Acceptance Test
 After updating create-user.feature file run the below command

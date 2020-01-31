@@ -4,7 +4,7 @@ Feature: Register user for Application
   Scenario Outline: Successful request - Create User API returns success response - with valid user info
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
-      | email      | placeholder@gmail.com  |
+      | email      | place_holder@gmail.com |
       | last_name  | Integration            |
       | first_name | Testing12345           |
       | password   | Test@1234              |
@@ -60,12 +60,11 @@ Feature: Register user for Application
       | first_name |                        |
       | password   | Test@1234              |
     Then I validate "<status>" for the request
-   # Then Validate the response body
     Examples:
       | status |
       | 422    |
 
-  @componentTest
+  @todo
   Scenario Outline: Bad request - Create User API returns error response - with invalid first name
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
@@ -78,7 +77,7 @@ Feature: Register user for Application
       | status |
       | 422    |
 
-  @tobecompleted
+  @todo
   Scenario Outline: Bad request - Not allowed methods
     Given User registration Api is up and running
     When I submit a request to api to perform registration with below "<methods>"
@@ -94,7 +93,7 @@ Feature: Register user for Application
       | 404    | delete   |
       | 404    | put      |
 
-  @tobecompleted
+  @todo
   Scenario Outline: Bad request - Invalid headers
     Given User registration Api is up and running
     When I submit a request to api to perform registration with below "<headers>"
@@ -109,7 +108,7 @@ Feature: Register user for Application
       | 401    | application/xml|This client is not authorized to perform that action.|
       | 401    |                |This client is not authorized to perform that action.|
 
-  @tobecompleted
+  @todo
   Scenario Outline: Bad request - Internal Server errors - API is down
     Given User registration Api is up and running
     When I submit a request to api to perform registration with below "<headers>"
@@ -123,7 +122,7 @@ Feature: Register user for Application
       | status | headers  |error_message|
       | 500    | application/xml|This client is not authorized to perform that action.|
 
-    @tobecompleted
+    @todo
     Scenario Outline: Bad request - 404 - wrong end point
       Given User registration Api is up and running
       When I submit a request to api to perform registration with below "<endpoint>"
@@ -135,3 +134,17 @@ Feature: Register user for Application
       Examples:
         | status | endpoint  |
         | 404    | https://showoff-rails-react-production.herokuapp.com/api/ |
+
+  @todo
+  Scenario Outline: Revoke Access Token and Refresh Access Token
+    Given User registration Api is up and running
+    When I submit a request to perform registration with below info
+      | email      | placeholder@gmail.com  |
+      | last_name  | Integration            |
+      | first_name | Testing12345           |
+      | password   | Test@1234              |
+    Then I validate "<status>" for the request
+    Then Validate the response body
+    Examples:
+      | status |
+      | 200    |

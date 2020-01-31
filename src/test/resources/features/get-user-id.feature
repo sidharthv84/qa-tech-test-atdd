@@ -53,4 +53,14 @@ Feature: Get endpoint - Show ID
       | 404    | delete   |
       | 404    | put      |
 
+  @todo
+  Scenario Outline: Get operation - Revoke Access Token and Refresh Access Token
+    Given User registration Api is up and running
+    When I perform the get operation for check email end point
+    Then I validate "<status>" for the request
+    Then Api returns success response
+    Examples:
+      |status|
+      |200   |
+
 
