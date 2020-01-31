@@ -4,7 +4,7 @@ Feature: Register user for Application
   Scenario Outline: Successful request - Create User API returns success response - with valid user info
     Given User registration Api is up and running
     When I submit a request to perform registration with below info
-      | email      | placeholder4@gmail.com |
+      | email      | placeholder@gmail.com  |
       | last_name  | Integration            |
       | first_name | Testing12345           |
       | password   | Test@1234              |
