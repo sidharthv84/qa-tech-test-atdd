@@ -24,7 +24,11 @@ After updating create-user.feature file run the below command
 ## Reports
 Reports can be found in build/reports/tests/test/index.html
 
+## @IntegrationTest
+Runs the user journey/E2E scenarios and passes the data like access token and id from create user endpoint to another token
 
+## @ComponentTest
+Runs the component test cases and covers different status codes
 
 
 
